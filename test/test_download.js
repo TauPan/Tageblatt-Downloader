@@ -24,42 +24,55 @@ function last_date() {
   return maxDate;
 };
 
+
+async function change_selection(t, wanted_value, select, option) {
+  if (! await Selector(select).visible) {
+    await t
+      .click('#dateDropDown');
+  }
+  let selected = await Selector(select).value;
+  if (wanted_value !== selected) {
+    await t
+      .click(select)
+      .hover(option)
+      .click(option);
+  }
+}
+
 test( `download`, async t => {
   const lastFileDate = last_date();
   const finalDate = Date.now();
   const yearOption = Selector('option.yearOption');
   const monthOption = Selector('option.monthOption');
   const dayOption = Selector('span.dayspan');
+  const wantedIssue = 'Buxtehuder Tageblatt';
   const issueOption = Selector('option.editionOption')
-        .withText('Buxtehuder Tageblatt');
+        .withText(wantedIssue);
   let date = lastFileDate;
   date.setDate(date.getDate() + 1);
+  let wantedYear = date.getFullYear().toString();
   let currentYearOption = yearOption
-      .withText(date.getFullYear().toString());
+      .withText(wantedYear);
+  let wantedMonth = monate[date.getMonth()];
   let currentMonthOption = monthOption
-      .withText(monate[date.getMonth()]);
+      .withText(wantedMonth);
   let currentDayOption = dayOption
       .withText(date.getDate().toString());
   await t
     .useRole(me)
-    .expect(Selector('#dateDropDown').visible).ok()
-    .click('#dateDropDown')
-    .click('select.yearSelect')
-    .hover(currentYearOption)
-    .click(currentYearOption)
-    .click('#dateDropDown')
-    .click('select.monthSelect')
-    .hover(currentMonthOption)
-    .click(currentMonthOption)
-    .click('#dateDropDown')
-    .click('select.editionSelect')
-    .hover(issueOption)
-    .click(issueOption)
+    .expect(Selector('#dateDropDown').visible).ok();
+  change_selection(t, wantedYear, Selector('select.yearSelect'),
+                   currentYearOption);
+  change_selection(t, wantedMonth, Selector('select.monthSelect'),
+                   currentMonthOption);
+  change_selection(t, wantedIssue,
+                   Selector('select.editionSelect'),
+                   issueOption);
+  await t
     .click('#dateDropDown')
     .hover(currentDayOption)
     .click(currentDayOption)
     .click('button.downloadMode')
     .hover('a#downloadComplete')
-    .debug()
-      ;
+  ;
 });
