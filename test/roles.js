@@ -9,8 +9,8 @@ export const me = Role(
     const userPass = JSON.parse(
       fs.readFileSync(userPassFile, 'utf-8'));
     await t
-      .typeText('div.Eingabetafel1 input[name="login"]', userPass.user)
-      .typeText('div.Eingabetafel1 input[name="pass"]', userPass.password)
+      .typeText('div.Eingabetafel1 input[name="login"]', userPass.user, {paste: true})
+      .typeText('div.Eingabetafel1 input[name="pass"]', userPass.password, {paste: true})
       .click(Selector('a').withText("Anmelden"));
   }
 );
