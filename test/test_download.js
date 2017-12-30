@@ -58,6 +58,8 @@ test( `download`, async t => {
     .click('#dateDropDown')
     .hover(currentDayOption)
     .click(currentDayOption)
+    .click('button.downloadMode')
+    .hover('a#downloadComplete')
     .debug()
-  ;
+      ;
 });
