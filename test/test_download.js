@@ -1,4 +1,5 @@
 const download_dir = `${process.env.HOME}/Dropbox/tageblatt`;
+const wantedIssue = 'Buxtehuder Tageblatt';
 
 import * as fs from "fs";
 
@@ -45,7 +46,6 @@ test( `download`, async t => {
   const yearOption = Selector('option.yearOption');
   const monthOption = Selector('option.monthOption');
   const dayOption = Selector('span.dayspan');
-  const wantedIssue = 'Buxtehuder Tageblatt';
   const issueOption = Selector('option.editionOption')
         .withText(wantedIssue);
   let date = lastFileDate;
