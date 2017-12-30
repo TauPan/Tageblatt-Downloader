@@ -1,4 +1,5 @@
-const download_dir = `${process.env.HOME}/Dropbox/tageblatt`;
+const target_dir = `${process.env.HOME}/Dropbox/tageblatt`;
+const download_dir = `${process.env.HOME}/Downloads`;
 const wantedIssue = 'Buxtehuder Tageblatt';
 
 import * as fs from "fs";
@@ -16,7 +17,7 @@ August September Oktober November Dezember`.split(/\s/);
 
 function last_date() {
   var maxDate = new Date('1970-01-01');
-  for (let v of fs.readdirSync(download_dir)) {
+  for (let v of fs.readdirSync(target_dir)) {
     let date = new Date(v.split(' ')[0]);
     if (date > maxDate) {
       maxDate = date;
@@ -75,4 +76,8 @@ test( `download`, async t => {
     .click('button.downloadMode')
     .hover('a#downloadComplete')
   ;
+  let downloadFile = `${download_dir}/${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} 12_00_00_${wantedIssue}.pdf`;
+  while (! fs.existsSync(targetFile)) {
+    await t.sleep(1000);
+  }
 });
