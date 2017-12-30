@@ -27,11 +27,11 @@ function last_date() {
 
 
 async function change_selection(t, wanted_value, select, option) {
-  if (! await Selector(select).visible) {
+  if (! await select.visible) {
     await t
       .click('#dateDropDown');
   }
-  let selected = await Selector(select).value;
+  let selected = await select.value;
   if (wanted_value !== selected) {
     await t
       .click(select)
