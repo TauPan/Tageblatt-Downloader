@@ -6,6 +6,7 @@ import {Role, Selector} from "testcafe";
 export const me = Role(
   'https://epaper.tageblatt.de/auth',
   async t => {
+    const anmeldeknopf = Selector('a').withText("Anmelden");
     const userPass = JSON.parse(
       fs.readFileSync(userPassFile, 'utf-8'));
     await t
@@ -13,6 +14,7 @@ export const me = Role(
                 userPass.user, {replace: true})
       .typeText('div.Eingabetafel1 input[name="pass"]',
                 userPass.password, {replace: true})
-      .click(Selector('a').withText("Anmelden"));
-  }
+      .hover(anmeldeknopf)
+      .click(anmeldeknopf);
+  },
 );
