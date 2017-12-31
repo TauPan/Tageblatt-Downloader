@@ -1,7 +1,7 @@
 const target_dir = `${process.env.HOME}/Dropbox/tageblatt`;
 const download_dir = `${process.env.HOME}/Downloads`;
 const wantedIssue = 'Buxtehuder Tageblatt';
-
+const epaper_page = `https://www.tageblatt.de/index.php?pageid=177`;
 import * as fs from "fs";
 
 import { Selector } from 'testcafe';
@@ -9,7 +9,7 @@ import { Selector } from 'testcafe';
 import {me} from './roles';
 
 fixture `download page`
-  .page `www.tageblatt.de/index.php?pageid=177`;
+  .page(epaper_page);
 
 
 const monate = `Januar Februar März April Mai Juni Juli
