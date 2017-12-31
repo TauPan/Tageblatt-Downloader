@@ -95,6 +95,8 @@ test( `download`, async t => {
   }
   await t
     .expect(Selector('#dateDropDown').visible).ok();
-  date.setDate(date.getDate() + 1);
-  await download_date_issue(t, date);
+  while (date < finalDate) {
+    date.setDate(date.getDate() + 1);
+    await download_date_issue(t, date);
+  }
 });
