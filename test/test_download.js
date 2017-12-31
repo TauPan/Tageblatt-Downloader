@@ -59,8 +59,11 @@ test( `download`, async t => {
       .withText(wantedMonth);
   let currentDayOption = dayOption
       .withText(date.getDate().toString());
+  await t.useRole(me);
+  await t.navigateTo(epaper_page);
+  await t.expect(Selector('li#loginDropDown > a')
+                 .withText("MEINE DATEN").exists).ok();
   await t
-    .useRole(me)
     .expect(Selector('#dateDropDown').visible).ok();
   change_selection(t, wantedYear, Selector('select.yearSelect'),
                    currentYearOption);
