@@ -66,7 +66,7 @@ async function download_date_issue(t, date) {
                          Selector('select.editionSelect'), issueOption);
   await t
     .expect(currentDayOption.visible).ok();
-  if (currentDayOption.filter('.issueMarker'))  {
+  if (currentDayOption.filter('.issueMarker').length)  {
     await t
         .click(currentDayOption);
       await t
