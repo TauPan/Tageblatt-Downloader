@@ -28,17 +28,16 @@ function last_date() {
 
 
 async function change_selection(t, wanted_value, select, option) {
-  if (! await select.visible) {
-    await t
-      .click('#dateDropDown');
-  }
   let selected = await select.value;
+  await t.hover(select);
   if (wanted_value !== selected) {
     await t
       .click(select)
       .hover(option)
-      .click(option);
+      .click(option)
+      .click('#dateDropDown');
   }
+  return t;
 }
 
 test( `download`, async t => {
@@ -49,6 +48,7 @@ test( `download`, async t => {
   const dayOption = Selector('span.dayspan');
   const issueOption = Selector('option.editionOption')
         .withText(wantedIssue);
+  const downloadMode = Selector('button.downloadMode');
   let date = lastFileDate;
   date.setDate(date.getDate() + 1);
   let wantedYear = date.getFullYear().toString();
@@ -65,22 +65,24 @@ test( `download`, async t => {
                  .withText("MEINE DATEN").exists).ok();
   await t
     .expect(Selector('#dateDropDown').visible).ok();
-  change_selection(t, wantedYear, Selector('select.yearSelect'),
-                   currentYearOption);
-  change_selection(t, wantedMonth, Selector('select.monthSelect'),
-                   currentMonthOption);
-  change_selection(t, wantedIssue,
-                   Selector('select.editionSelect'),
-                   issueOption);
+  await t.click('#dateDropDown');
+  await change_selection(t, wantedYear, Selector('select.yearSelect'),
+                         currentYearOption);
+  await change_selection(t, wantedMonth, Selector('select.monthSelect'),
+                         currentMonthOption);
+  await change_selection(t, wantedIssue,
+                         Selector('select.editionSelect'), issueOption);
   await t
-    .click('#dateDropDown')
-    .hover(currentDayOption)
-    .click(currentDayOption)
-    .click('button.downloadMode')
-    .hover('a#downloadComplete')
-  ;
+    .expect(currentDayOption.visible).ok()
+    .click(currentDayOption);
+  await t
+    .expect(downloadMode.visible).ok()
+    .click(downloadMode)
+    .click('a#downloadComplete');
   let downloadFile = `${download_dir}/${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} 12_00_00_${wantedIssue}.pdf`;
-  while (! fs.existsSync(targetFile)) {
-    await t.sleep(1000);
+  await t
+    .expect(fs.exists(`${downloadFile}.crdownload`));
+  while (! fs.existsSync(downloadFile)) {
+    await t.wait(1000);
   }
 });
