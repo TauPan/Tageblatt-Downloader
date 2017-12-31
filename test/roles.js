@@ -10,12 +10,12 @@ export const me = Role(
     const userPass = JSON.parse(
       fs.readFileSync(userPassFile, 'utf-8'));
     await t
+      .click('div.cc_banner-wrapper a')
       .typeText('div.Eingabetafel1 input[name="login"]',
                 userPass.user, {replace: true})
       .typeText('div.Eingabetafel1 input[name="pass"]',
                 userPass.password, {replace: true})
       .hover(anmeldeknopf)
       .click(anmeldeknopf);
-  },
-  {preserveUrl: true}
+  }
 );
