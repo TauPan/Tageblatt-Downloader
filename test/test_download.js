@@ -79,10 +79,13 @@ test( `download`, async t => {
     .expect(downloadMode.visible).ok()
     .click(downloadMode)
     .click('a#downloadComplete');
-  let downloadFile = `${download_dir}/${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} 12_00_00_${wantedIssue}.pdf`;
+  let downloadFilename = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} 12_00_00_${wantedIssue}.pdf`;
+  let downloadFile = `${download_dir}/${downloadFilename}`;
+  let targetFile = `${target_dir}/${downloadFilename}`;
   await t
     .expect(fs.exists(`${downloadFile}.crdownload`));
   while (! fs.existsSync(downloadFile)) {
     await t.wait(1000);
   }
+  fs.renameSync(downloadFile, targetFile);
 });
