@@ -66,6 +66,7 @@ async function download_date_issue(t, date) {
                          Selector('select.editionSelect'), issueOption);
   await t
     .expect(currentDayOption.visible).ok();
+  if (currentDayOption.filter('.issueMarker'))  {
     await t
         .click(currentDayOption);
       await t
@@ -80,8 +81,8 @@ async function download_date_issue(t, date) {
     while (! fs.existsSync(downloadFile)) {
       await t.wait(1000);
     }
+    fs.renameSync(downloadFile, targetFile);
   }
-  fs.renameSync(downloadFile, targetFile);
 };
 
 test( `download`, async t => {
