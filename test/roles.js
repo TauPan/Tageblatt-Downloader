@@ -17,4 +17,5 @@ export const me = Role(
       .hover(anmeldeknopf)
       .click(anmeldeknopf);
   },
+  {preserveUrl: true}
 );
