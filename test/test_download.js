@@ -89,9 +89,10 @@ test( `download`, async t => {
   const lastFileDate = last_date();
   let date = lastFileDate;
   await t.useRole(me);
-  await t.navigateTo(epaper_page);
-  await t.expect(Selector('li#loginDropDown > a')
-                 .withText("MEINE DATEN").exists).ok();
+  while (! Selector('li#loginDropDown > a')
+         .withText("MEINE DATEN").exists) {
+    await t.navigateTo(epaper_page);
+  }
   await t
     .expect(Selector('#dateDropDown').visible).ok();
   date.setDate(date.getDate() + 1);
