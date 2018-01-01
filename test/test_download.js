@@ -94,7 +94,7 @@ test( `download`, async t => {
   const lastFileDate = last_date();
   let date = lastFileDate;
   await t.useRole(me);
-  while (! Selector('li#loginDropDown > a')
+  while (! await Selector('li#loginDropDown > a')
          .withText("MEINE DATEN").exists) {
     await t.navigateTo(epaper_page);
   }
