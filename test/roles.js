@@ -11,9 +11,9 @@ export const me = Role(
     const userPass = JSON.parse(
       fs.readFileSync(userPassFile, 'utf-8'));
     await t
-      .wait(1000)
-      .expect(cookie_button.visible).ok()
-      .click(cookie_button)
+    // .wait(2000)
+    // .expect(cookie_button.visible).ok()
+    // .click(cookie_button)
       .typeText('div.Eingabetafel1 input[name="login"]',
                 userPass.user, {replace: true})
       .typeText('div.Eingabetafel1 input[name="pass"]',
