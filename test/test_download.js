@@ -82,6 +82,11 @@ async function download_date_issue(t, date) {
       await t.wait(1000);
     }
     fs.renameSync(downloadFile, targetFile);
+    await t.navigateTo(epaper_page);
+  } else {
+    // close date drop down, so we can open it again (unfortunately I
+    // can't find a robust way to check if it's open)
+    await t.pressKey('esc');
   }
 };
 
