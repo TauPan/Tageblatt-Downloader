@@ -66,14 +66,14 @@ async function download_date_issue(t, date) {
                          Selector('select.editionSelect'), issueOption);
   await t
     .expect(currentDayOption.visible).ok();
-  if (currentDayOption.filter('.issueMarker').length)  {
+  if (await currentDayOption.hasClass('issueMarker'))  {
     await t
-        .click(currentDayOption);
-      await t
-        .expect(downloadMode.visible).ok()
-        .click(downloadMode)
-        .click('a#downloadComplete');
-      let downloadFilename = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} 12_00_00_${wantedIssue}.pdf`;
+      .click(currentDayOption);
+    await t
+      .expect(downloadMode.visible).ok()
+      .click(downloadMode)
+      .click('a#downloadComplete');
+    let downloadFilename = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} 12_00_00_${wantedIssue}.pdf`;
     let downloadFile = `${download_dir}/${downloadFilename}`;
     let targetFile = `${target_dir}/${downloadFilename}`;
     await t
