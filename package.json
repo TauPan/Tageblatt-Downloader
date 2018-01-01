@@ -1,4 +1,7 @@
 {
+  "scripts" : {
+    "download": "testcafe chromium:headless --skip-js-errors"
+  },
   "dependencies": {
     "testcafe": "^0.18.6"
   }
