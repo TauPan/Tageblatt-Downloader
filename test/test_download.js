@@ -68,7 +68,7 @@ async function download_date_issue(t, date) {
     .expect(currentDayOption.visible).ok();
   if (await currentDayOption.hasClass('issueMarker'))  {
     await t
-      .click(currentDayOption);
+      .click(currentDayOption, {speed: 0.7});
     await t
       .expect(downloadMode.visible).ok()
       .click(downloadMode)
