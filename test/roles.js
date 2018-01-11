@@ -19,6 +19,6 @@ export const me = Role(
       .typeText('div.Eingabetafel1 input[name="pass"]',
                 userPass.password, {replace: true})
       .hover(anmeldeknopf)
-      .click(anmeldeknopf);
+      .click(anmeldeknopf, {speed: 0.7});
   }
 );
