@@ -77,7 +77,7 @@ async function download_date_issue(t, date) {
     let downloadFile = `${download_dir}/${downloadFilename}`;
     let targetFile = `${target_dir}/${downloadFilename}`;
     await t
-      .wait(1000)
+      .wait(10000)
       .expect(fs.existsSync(`${downloadFile}.crdownload`)
               || fs.existsSync(downloadFile)).ok();
     while (! fs.existsSync(downloadFile)) {
