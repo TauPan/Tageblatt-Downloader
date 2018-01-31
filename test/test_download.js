@@ -17,8 +17,8 @@ const downloadMode = Selector('button.downloadMode');
 const finalDate = Date.now();
 
 fixture `download page`
-  .page(epaper_page);
-
+  .page(epaper_page)
+  .beforeEach(t => t.resizeWindow(1920, 1080));;
 
 const monate = `Januar Februar März April Mai Juni Juli
 August September Oktober November Dezember`.split(/\s/);
