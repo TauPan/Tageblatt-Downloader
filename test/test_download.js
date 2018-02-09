@@ -76,13 +76,7 @@ async function download_date_issue(t, date) {
     let downloadFilename = `${date.toLocaleString('de', {year:'numeric', month:'2-digit', day:'2-digit'})} 12_00_00_${wantedIssue}.pdf`;
     let downloadFile = `${download_dir}/${downloadFilename}`;
     let targetFile = `${target_dir}/${downloadFilename}`;
-    await t
-      .wait(10000)
-      .expect(fs.existsSync(`${downloadFile}.crdownload`)
-              || fs.existsSync(downloadFile)).ok();
-    while (! fs.existsSync(downloadFile)) {
-      await t.wait(1000);
-    }
+    await waitForFile(downloadFile);
     fs.renameSync(downloadFile, targetFile);
     await t.navigateTo(epaper_page);
   } else {
@@ -91,6 +85,26 @@ async function download_date_issue(t, date) {
     await t.pressKey('esc');
   }
 };
+
+// from https://testcafe-discuss.devexpress.com/t/interact-with-webapps-save-as-dialog/520/6
+function delay (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function waitForFile(filename) {
+  for (;;) {
+    try {
+      fs.statSync(filename);
+      return true;
+    }
+    catch (e) {
+      if (e.code !== 'ENOENT')
+        return true;
+
+      await delay(300);
+    }
+  }
+}
 
 test( `download`, async t => {
   const lastFileDate = last_date();
