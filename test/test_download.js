@@ -34,16 +34,24 @@ function last_date() {
   return maxDate;
 };
 
+async function show_date_dropdown(t) {
+  const cal_container = Selector('div.calContainer');
+  if (! (await cal_container.visible)) {
+    await t
+      .click('#dateDropDown')
+      .expect(cal_container.visible).ok({timeout: 1000});
+  }
+};
 
 async function change_selection(t, wanted_value, select, option) {
+  await show_date_dropdown(t);
   let selected = await select.value;
   await t.hover(select);
   if (wanted_value !== selected) {
     await t
       .click(select)
       .hover(option)
-      .click(option)
-      .click('#dateDropDown');
+      .click(option);
   }
   return t;
 }
@@ -57,13 +65,13 @@ async function download_date_issue(t, date) {
       .withText(wantedMonth);
   let currentDayOption = dayOption
       .withText(date.getDate().toString());
-  await t.click('#dateDropDown');
   await change_selection(t, wantedYear, Selector('select.yearSelect'),
                          currentYearOption);
   await change_selection(t, wantedMonth, Selector('select.monthSelect'),
                          currentMonthOption);
   await change_selection(t, wantedIssue,
                          Selector('select.editionSelect'), issueOption);
+  await show_date_dropdown(t);
   await t
     .expect(currentDayOption.visible).ok();
   if (await currentDayOption.hasClass('issueMarker'))  {
