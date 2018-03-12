@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "download": "testcafe chromium:headless --hostname localhost --skip-js-errors"
+    "download": "testcafe chromium:headless --hostname localhost --skip-js-errors --screenshots screenshots --screenshots-on-fails"
   },
   "dependencies": {
     "testcafe": "^0.19.0"
