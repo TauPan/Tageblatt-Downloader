@@ -81,7 +81,7 @@ async function download_date_issue(t, date) {
       .expect(downloadMode.visible).ok()
       .click(downloadMode)
       .click('a#downloadComplete');
-    let downloadFilename = `${date.toLocaleString('de', {year:'numeric', month:'2-digit', day:'2-digit'})} 12_00_00_${wantedIssue}.pdf`;
+    let downloadFilename = `${date.toLocaleString('de', {year:'numeric', month:'2-digit', day:'2-digit'})} 12-00-00_${wantedIssue}.pdf`;
     let downloadFile = `${download_dir}/${downloadFilename}`;
     let targetFile = `${target_dir}/${downloadFilename}`;
     await waitForFile(downloadFile);
