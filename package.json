@@ -4,7 +4,7 @@
     "download-headless": "testcafe chromium:headless --hostname localhost --skip-js-errors --screenshots screenshots --screenshots-on-fails"
   },
   "dependencies": {
-    "testcafe": "^0.19.2",
+    "testcafe": "^13.1.1",
     "testcafe-live": "^0.1.3"
   }
 }
