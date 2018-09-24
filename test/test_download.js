@@ -8,9 +8,9 @@ import * as fs from "fs";
 import { Selector } from 'testcafe';
 
 import {me} from './roles';
-const yearOption = Selector('option.yearOption');
-const monthOption = Selector('option.monthOption');
-const dayOption = Selector('span.dayspan');
+const yearOption = Selector('option.yearOption', {timeout: 100});
+const monthOption = Selector('option.monthOption', {timeout: 100});
+const dayOption = Selector('span.dayspan', {timeout: 100});
 const issueOption = Selector('option.editionOption', {timeout: 100})
       .withText(wantedIssue);
 const downloadMode = Selector('button.downloadMode');
