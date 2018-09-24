@@ -11,7 +11,7 @@ import {me} from './roles';
 const yearOption = Selector('option.yearOption');
 const monthOption = Selector('option.monthOption');
 const dayOption = Selector('span.dayspan');
-const issueOption = Selector('option.editionOption')
+const issueOption = Selector('option.editionOption', {timeout: 100})
       .withText(wantedIssue);
 const downloadMode = Selector('button.downloadMode');
 const finalDate = Date.now();
