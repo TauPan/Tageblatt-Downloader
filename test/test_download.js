@@ -1,4 +1,4 @@
-const target_dir = `${process.env.HOME}/ownCloud/tageblatt`;
+const target_dir = `${process.env.HOME}/Nextcloud/tageblatt`;
 const download_dir = `${process.env.HOME}/Downloads`;
 const wantedIssue = 'Buxtehuder Tageblatt';
 const epaper_page = `https://www.tageblatt.de/index.php?pageid=177`;
