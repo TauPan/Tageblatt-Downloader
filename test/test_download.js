@@ -1,7 +1,7 @@
 const target_dir = `${process.env.HOME}/Nextcloud/tageblatt`;
 const download_dir = `${process.env.HOME}/Downloads`;
 const wantedIssue = 'Buxtehuder Tageblatt';
-const epaper_page = `https://www.tageblatt.de/index.php?pageid=177`;
+const epaper_page = `https://epaper.tageblatt.de/`;
 
 import * as fs from "fs";
 

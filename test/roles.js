@@ -4,7 +4,7 @@ const userPassFile = `${process.env.HOME}/secret/tageblatt-userpass.json`;
 import {Role, Selector} from "testcafe";
 
 export const me = Role(
-  'https://epaper.tageblatt.de/auth',
+  'https://mein.tageblatt.de/',
   async t => {
     const cookie_button = Selector('div.cc_banner-wrapper a');
     const anmeldeknopf = Selector('a').withText("Anmelden");
@@ -14,9 +14,9 @@ export const me = Role(
     // .wait(2000)
     // .expect(cookie_button.visible).ok()
     // .click(cookie_button)
-      .typeText('div.Eingabetafel1 input[name="login"]',
+      .typeText('form#loginForm input[name="login"]',
                 userPass.user, {replace: true})
-      .typeText('div.Eingabetafel1 input[name="pass"]',
+      .typeText('form#loginForm input[name="pass"]',
                 userPass.password, {replace: true})
       .hover(anmeldeknopf)
       .click(anmeldeknopf, {speed: 0.7});
