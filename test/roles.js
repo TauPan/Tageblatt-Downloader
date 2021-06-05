@@ -4,19 +4,20 @@ const userPassFile = `${process.env.HOME}/secret/tageblatt-userpass.json`;
 import {Role, Selector} from "testcafe";
 
 export const me = Role(
-  'https://mein.tageblatt.de/',
+  'https://tageblatt.de',
   async t => {
-    const cookie_button = Selector('div.cc_banner-wrapper a');
-    const anmeldeknopf = Selector('a').withText("Anmelden");
+    const login_form = Selector('form').withAttribute(
+      'action', RegExp('https://mein.tageblatt.de/login.html'));
+    const anmeldeknopf = login_form.find('button[type="submit"]');
+    const username = login_form.find('input[name="login"]');
+    const password = login_form.find('input[name="pass"]');
     const userPass = JSON.parse(
       fs.readFileSync(userPassFile, 'utf-8'));
     await t
-    // .wait(2000)
-    // .expect(cookie_button.visible).ok()
-    // .click(cookie_button)
-      .typeText('form#loginForm input[name="login"]',
+      .expect(login_form.exists).ok()
+      .typeText(username,
                 userPass.user, {replace: true})
-      .typeText('form#loginForm input[name="pass"]',
+      .typeText(password,
                 userPass.password, {replace: true})
       .hover(anmeldeknopf)
       .click(anmeldeknopf, {speed: 0.7});

@@ -117,6 +117,12 @@ async function waitForFile(filename) {
 test( `download`, async t => {
   const lastFileDate = last_date();
   let date = lastFileDate;
+  const cookie_button = Selector('a.cmpboxbtnyes');
+  await t
+    .wait(2000);
+  if (await cookie_button.visible) {
+    await t.click(cookie_button);
+  }
   await t.useRole(me);
   while (! await Selector('li#loginDropDown > a')
          .withText("MEINE DATEN").exists) {
