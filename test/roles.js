@@ -11,6 +11,8 @@ export const me = Role(
     const userPass = JSON.parse(
       fs.readFileSync(userPassFile, 'utf-8'));
     await t
+      .expect(username
+              .with({visibilityCheck: true, timeout: 15000}).visible).ok()
       .typeText(username,
                 userPass.user, {replace: true})
       .typeText(password,
