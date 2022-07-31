@@ -65,8 +65,9 @@ async function download_date_issue(t, date) {
       .withText(wantedMonth);
   let currentDayOption = dayOption
       .withText(date.getDate().toString());
-  await change_selection(t, wantedYear, Selector('select.yearSelect'),
-                         currentYearOption);
+  // Hidden on 2022-07-31, may remain hidden in the future?
+  // await change_selection(t, wantedYear, Selector('select.yearSelect'),
+  //                        currentYearOption);
   await change_selection(t, wantedMonth, Selector('select.monthSelect'),
                          currentMonthOption);
   await change_selection(t, wantedIssue,
